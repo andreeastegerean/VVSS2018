@@ -24,7 +24,7 @@ public class RepositoryTest {
     public void savePatientToFile() throws IOException {
         String name="radu";
         String ssn="1961107145678";
-        String address="bacau";
+        String address="tg mures";
 
         int nrBefore = rep.getPatientList().size();
         rep.savePatientToFile(new Patient(name, ssn, address));

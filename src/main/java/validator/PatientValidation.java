@@ -18,7 +18,7 @@ public class PatientValidation {
 		}
 		*/
 	}
-	
+
 	public static void ssnValidate(String ssn) throws PatientException {
 		if (ssn.length() != 13) {
 			System.out.println("ssn="+ ssn+" si lungime="+ssn.length());
@@ -30,7 +30,7 @@ public class PatientValidation {
 			throw new PatientException("The \"ssn\" field has an invalid format!");
 		}
 	}
-	
+
 	public static void addressValidate(String address) throws PatientException {
 		if (address.length() == 0) {
 			throw new PatientException("One of the required fields is empty!");

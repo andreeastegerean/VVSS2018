@@ -14,23 +14,23 @@ import model.Patient;
 
 
 public class Repository {
-	
+
 	private String patients; // list of patients
 	private String consultations; // list of consultation
 
 	private ArrayList<Consultation> consultationList;
 	private ArrayList<Patient> patientList;
-	
-	public Repository(String patients, String consultations) 
+
+	public Repository(String patients, String consultations)
 	{
 		this.patients = patients;
 		this.consultations = consultations;
-		
+
 		consultationList = new ArrayList<Consultation>();
 		patientList = new ArrayList<Patient>();
 	}
-	
-	public void cleanFiles()
+
+	public void cleanPatientFile()
 	{
 		FileWriter fw;
 		try {
@@ -41,7 +41,12 @@ public class Repository {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
+		patientList = new ArrayList<Patient>();
+	}
+
+	public void cleanConsultationFile()
+	{
 		FileWriter fwc;
 		try {
 			fwc = new FileWriter(consultations);
@@ -53,9 +58,8 @@ public class Repository {
 		}
 
 		consultationList = new ArrayList<Consultation>();
-		patientList = new ArrayList<Patient>();
 	}
-	
+
 	public String[] getPatientsFromFile() throws IOException
 	{
 		int n = 0;
@@ -64,7 +68,7 @@ public class Repository {
 			n++;
 		}
 		in.close();
-		
+
 		String[] la=new String[n];
 		String s = new String();
 		int i = 0;
@@ -76,7 +80,7 @@ public class Repository {
 		in.close();
 		return la;
 	}
-	
+
 	public String[] getConsultationsFromFile() throws IOException
 	{
 		int n = 0;
@@ -85,7 +89,7 @@ public class Repository {
 			n++;
 		}
 		in.close();
-		
+
 		String[] la=new String[n];
 		String s = new String();
 		int i = 0;
@@ -97,38 +101,38 @@ public class Repository {
 		in.close();
 		return la;
 	}
-	
+
 	public List<Patient> getPatientList()
 	{
 		List<Patient> lp = new ArrayList<Patient>();
 		try {
 			String[] tokens = getPatientsFromFile();
-			
+
 			String tok = new String();
 			String[] pat;
 			int i = 0;
 			while (i < tokens.length)
-			{ 
+			{
 				tok = tokens[i];
 				pat = tok.split(",");
-				lp.add(new Patient(pat[0],pat[1],pat[2]));	
+				lp.add(new Patient(pat[0],pat[1],pat[2]));
 				i = i + 1;
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		return lp;	
+
+		return lp;
 	}
-	
+
 	public List<Consultation> getConsultationList()
 	{
 		List<Consultation> lp = new ArrayList<Consultation>();
 		try {
 			String[] tokens = getConsultationsFromFile();
-			
-			
+
+
 			String tok = new String();
 			String[] cons;
 			String[] meds;
@@ -151,13 +155,14 @@ public class Repository {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		return lp;	
+
+		return lp;
 	}
-	
+
 	public void savePatientToFile(Patient p) throws IOException		// save to file
 	{
 		int n=0;
+		boolean unique = true;
 		BufferedReader in = new BufferedReader(new FileReader(patients));
 		while((in.readLine())!=null)
 			n++;
@@ -169,17 +174,26 @@ public class Repository {
 		while((str=in.readLine())!=null)
 		{
 			sl[i] = str;
+			String[] comp = str.split(",");
+			if(comp[1].equals(p.getSSN())) {
+				unique = false;
+			}
+
 			i++;
 		}
 		in.close(); // append
 		FileWriter fw=new FileWriter(patients, true);
 		PrintWriter out=new PrintWriter(fw);
-		for (i=1; i<sl.length-1; i++)
+		cleanPatientFile();
+		for (i=0; i<sl.length; i++)
 			out.println(sl[i]);
-		out.println(p.toString());
+		if(unique) {
+			out.println(p.toString());
+		}
+
 		out.close();
 	}
-	
+
 	public void saveConsultationToFile(Consultation c) throws IOException		// save to file
 	{
 		int n=0;
@@ -199,7 +213,8 @@ public class Repository {
 		in.close(); // append
 		FileWriter fw=new FileWriter(consultations, true);
 		PrintWriter out=new PrintWriter(fw);
-		for (i=0; i<sl.length-1; i++)
+		cleanConsultationFile();
+		for (i=0; i<sl.length; i++)
 			out.println(sl[i]);
 		out.println(c.toString());
 		out.close();

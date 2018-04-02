@@ -88,7 +88,7 @@ public class DoctorController {
 	// diagnostic, prescription drugs)
 
 	public void addConsultation(String consID, String patientSSN, String diag,
-			List<String> meds, String date) throws ConsultationException {
+								List<String> meds, String date) throws ConsultationException {
 		if (meds == null)
 			throw new ConsultationException("meds is null");
 
@@ -100,14 +100,13 @@ public class DoctorController {
 			ConsultationList.add(c);
 			try {
 				rep.saveConsultationToFile(c);
+				Patient p = new Patient();
+				p = this.getPatientList().get(
+						this.getPatientBySSN(c.getPatientSSN()));
+				p.setConsNum(p.getConsNum() + 1);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			Patient p = new Patient();
-			p = this.getPatientList().get(
-					this.getPatientBySSN(c.getPatientSSN()));
-			p.setConsNum(p.getConsNum() + 1);
 		}
 		else {
 			throw new ConsultationException("invalid arguments");
@@ -127,10 +126,10 @@ public class DoctorController {
 			for (int i = 0; i < c.size(); i++) {
 				if (c.get(i).getDiag().toLowerCase()
 						.contains(disease.toLowerCase())) // so that it is case
-															// insensitive
+				// insensitive
 				{
 					for (int j = 0; j < p.size(); j++) // verify patient was
-															// not already added
+					// not already added
 					{
 						if (p.get(j).getSSN().equals(c.get(i).getPatientSSN())) {
 							chk = p.get(j).getConsNum();
@@ -140,9 +139,9 @@ public class DoctorController {
 					if (chk == 1) {
 						p.add(this.getPatientList().get(
 								this.getPatientBySSN(c.get(i).getPatientSSN()))); // get
-																					// Patient
-																					// by
-																					// SSN
+						// Patient
+						// by
+						// SSN
 					}
 					chk = 1;
 				}
@@ -165,11 +164,5 @@ public class DoctorController {
 		}
 		return p;
 	}
-
-	/*
-	 * For debugging purposes public void printList() { for (int i = 0; i <
-	 * PatientList.size(); i++) {
-	 * System.out.println(PatientList.get(i).toString()); } }
-	 */
 
 }
