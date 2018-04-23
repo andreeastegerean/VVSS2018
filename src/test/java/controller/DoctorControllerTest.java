@@ -1,10 +1,14 @@
 package controller;
 
+import exceptions.ConsultationException;
 import exceptions.PatientException;
 import junit.framework.TestCase;
 import model.Patient;
 import org.junit.Test;
 import repository.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -100,5 +104,326 @@ public class DoctorControllerTest {
             thrown = e.getMessage();
         }
         assertEquals(thrown, "One of the required fields is empty!");
+    }
+
+    @Test
+    public void addConsultationIf_3_C1_False() {
+        String consID = null;
+        String patientSSN = "2961107125782";
+        String diag = "varicela";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "25.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C1_True() {
+        String consID = "10";
+        String patientSSN = "2961107125782";
+        String diag = "varicela";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C2_False() {
+        String consID = "11";
+        String patientSSN = null;
+        String diag = "varicela";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C2_True() {
+        String consID = "12";
+        String patientSSN = "1961208123456";
+        String diag = "varicela";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C3_False() {
+        String consID = "13";
+        String patientSSN = "1961208123456";
+        String diag = null;
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C3_True() {
+        String consID = "14";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap";
+        List<String> meds = new ArrayList<String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "27.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C4_False() {
+        String consID = "15";
+        String patientSSN = "1961208123456";
+        String diag = "diafragma febra";
+        List<String> meds = new ArrayList<java.lang.String>();
+        String date = "29.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+
+    //aici
+    @Test
+    public void addConsultationIf_3_C4_True() {
+        String consID = "15";
+        String patientSSN = "2961107125782";
+        String diag = "durere gat";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "27.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C6_False() {
+        String consID = "-1";
+        String patientSSN = "1961208123456";
+        String diag = null;
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C6_True() {
+        String consID = "16";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "27.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C5_False() {
+        String consID = "17";
+        String patientSSN = "1961208123450";
+        String diag = null;
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "24.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("invalid arguments", thrown);
+    }
+
+    @Test
+    public void addConsultationIf_3_C5_True() {
+        String consID = "18";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String date = "27.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultation_Path1()
+    {
+        String consID = "19";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap";
+        List<String> meds = null;
+        String date = "27.03.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("meds is null", thrown);
+    }
+
+    @Test
+    public void addConsultation_Path2()
+    {
+        rep.setConsultationFileName("ddsad");
+        String consID = "22";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap + gat si asa";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        meds.add("aspirin plus c");
+        meds.add("aspirin plus c forte");
+        String date = "04.04.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
+    }
+
+    @Test
+    public void addConsultation_Path3()
+    {
+        rep.setConsultationFileName("FileConsultations.txt");
+        String consID = "21";
+        String patientSSN = "2961107125782";
+        String diag = "durere cap + gat...";
+        List<String> meds = new ArrayList<java.lang.String>();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        meds.add("aspirin plus c");
+        String date = "02.04.2018";
+
+        String thrown = "";
+
+        try {
+            ctrl.addConsultation(consID, patientSSN, diag, meds, date);
+        } catch (ConsultationException e) {
+            thrown = e.getMessage();
+        }
+
+        assertEquals("", thrown);
     }
 }

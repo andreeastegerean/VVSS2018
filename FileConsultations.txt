@@ -1,0 +1,11 @@
+1,2961107125782,sore throat,nurofen,01/02/2016
+2,1961208123456,sore throat,vitamin c,03.03.2018
+3,2961107125782,sore throat,vitamin c+nurofen,02.02.2018
+4,1961208123456,sore throat,vitamin c+nurofen,02.03.2018
+6,2961107123456,sore throat,vitamin d+aspiri,02.03.2018
+10,2961107125782,varicela,antibiotic+paracetamo,24.03.2018
+14,2961107125782,durere cap,antibiotic+paracetamo,27.03.2018
+15,2961107125782,durere gat,antibiotic+paracetamo,27.03.2018
+18,2961107125782,durere cap,antibiotic+paracetamo,27.03.2018
+16,2961107125782,durere cap,antibiotic+paracetamo,27.03.2018
+21,2961107125782,durere cap + gat...,antibiotic+paracetamol+aspirin plus ,02.04.2018

@@ -1,2 +1,4 @@
+radu,1961107145678,bacau
 andrada,2971106123456,braila
-radu,1961107145678,tg mures
+nicoletta,2961107234567,cluj
+nicoletta,2961107125782,cluj

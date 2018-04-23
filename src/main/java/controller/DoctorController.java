@@ -89,30 +89,30 @@ public class DoctorController {
 
 	public void addConsultation(String consID, String patientSSN, String diag,
 								List<String> meds, String date) throws ConsultationException {
-		if (meds == null)//1
-			throw new ConsultationException("meds is null");//2
+		if (meds == null)
+			throw new ConsultationException("meds is null");
 
 		if (consID != null && patientSSN != null
 				&& diag != null && meds.size() != 0
 				&& this.getPatientBySSN(patientSSN) > -1
-				&& this.getConsByID(consID) == -1) { //3
+				&& this.getConsByID(consID) == -1) {
 			Consultation c = new Consultation(consID, patientSSN, diag, meds, date);
-			ConsultationList.add(c); //4
-			try { //5
-				rep.saveConsultationToFile(c);//6
+			ConsultationList.add(c);
+			try {
+				rep.saveConsultationToFile(c);
 				Patient p = new Patient();
 				p = this.getPatientList().get(
 						this.getPatientBySSN(c.getPatientSSN()));
 				p.setConsNum(p.getConsNum() + 1);
 			} catch (IOException e) {
-				e.printStackTrace(); //7
+				e.printStackTrace();
 			}
 		}
 		else {
-			throw new ConsultationException("invalid arguments");//8
+			throw new ConsultationException("invalid arguments");
 		}
 
-	}//9
+	}
 
 	public List<Patient> getPatientsWithDisease(String disease) throws PatientException {
 		List<Consultation> c = this.getConsultationList();
@@ -164,5 +164,11 @@ public class DoctorController {
 		}
 		return p;
 	}
+
+	/*
+	 * For debugging purposes public void printList() { for (int i = 0; i <
+	 * PatientList.size(); i++) {
+	 * System.out.println(PatientList.get(i).toString()); } }
+	 */
 
 }

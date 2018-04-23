@@ -159,40 +159,47 @@ public class Repository {
 		return lp;
 	}
 
+	public String getConsultationFileName() {
+		return consultations;
+	}
+
+	public void setConsultationFileName(String newConsultation) {
+		consultations = newConsultation;
+	}
+
 	public void savePatientToFile(Patient p) throws IOException		// save to file
 	{
-		int n=0;//1
-		boolean unique = true;//1
-		BufferedReader in = new BufferedReader(new FileReader(patients));//1
-		while((in.readLine())!=null)//2
-			n++;//3
-		in.close();//4
-		String[] sl=new String[n];//4
-		String str;//4
-		int i=0;//4
-		in = new BufferedReader(new FileReader(patients));//4
-		while((str=in.readLine())!=null)//5
+		int n=0;
+		boolean unique = true;
+		BufferedReader in = new BufferedReader(new FileReader(patients));
+		while((in.readLine())!=null)
+			n++;
+		in.close();
+		String[] sl=new String[n];
+		String str;
+		int i=0;
+		in = new BufferedReader(new FileReader(patients));
+		while((str=in.readLine())!=null)
 		{
-			//toate din while pana la if sunt 6
-			sl[i] = str;//6
+			sl[i] = str;
 			String[] comp = str.split(",");
-			if(comp[1].equals(p.getSSN())) {//7
-				unique = false;//8
+			if(comp[1].equals(p.getSSN())) {
+				unique = false;
 			}
 
-			i++;//9
+			i++;
 		}
 		in.close(); // append
-		FileWriter fw=new FileWriter(patients, true);//10
+		FileWriter fw=new FileWriter(patients, true);
 		PrintWriter out=new PrintWriter(fw);
-		cleanPatientFile();//10
-		for (i=0; i<sl.length; i++ ) //11
-			out.println(sl[i]); //12
-		if(unique) {//13
-			out.println(p.toString());//14
+		cleanPatientFile();
+		for (i=0; i<sl.length; i++)
+			out.println(sl[i]);
+		if(unique) {
+			out.println(p.toString());
 		}
 
-		out.close();//14
+		out.close();
 	}
 
 	public void saveConsultationToFile(Consultation c) throws IOException		// save to file

@@ -35,7 +35,7 @@ public class RepositoryTest {
 
     @Test
     public void savePatientInInexistingFile() {
-        Repository repos = new Repository("not-exist.txt", "C:\\Users\\nicol\\Documents\\Custom Office Templates\\college\\3rd year, 2nd semester\\vvss\\pnie1983Lab3\\src\\FileConsultations.txt");
+        Repository repos = new Repository("not-exist.txt", "FileConsultations.txt");
 
         String name="radu";
         String ssn="1961107145678";
