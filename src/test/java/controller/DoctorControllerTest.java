@@ -426,4 +426,96 @@ public class DoctorControllerTest {
 
         assertEquals("", thrown);
     }
+
+    @Test
+    public void testReqA() {
+        String thrown0 = "";
+        int nrBefore = rep.getPatientList().size();
+        try {
+            ctrl.addPatient(new Patient("diana", "2971106123456", "pitesti"));
+            int nrAfter = rep.getPatientList().size();
+            assertEquals(nrBefore , nrAfter);
+        } catch (PatientException e) {
+            thrown0 = e.getMessage();
+            assertEquals(thrown0, "Null fields");
+        }
+    }
+
+    @Test
+    public void testReqAB() {
+        String thrown0 = "";
+        int nrBefore = rep.getPatientList().size();
+        try {
+            ctrl.addPatient(new Patient("diana", "2971106123456", "pitesti"));
+            int nrAfter = rep.getPatientList().size();
+            assertEquals(nrBefore , nrAfter);
+        } catch (PatientException e) {
+            thrown0 = e.getMessage();
+            assertEquals(thrown0, "Null fields");
+        }
+
+        //B
+        List<String> meds = new ArrayList<String>();
+        int nrBefore2 = rep.getConsultationList().size();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String thrown = "";
+        try {
+            ctrl.addConsultation("23", "2971106123456", "varicela", meds, "10.04.2018");
+            int nrAfter2 = rep.getConsultationList().size()-1;
+
+            assertEquals(nrBefore2,nrAfter2);
+        } catch (ConsultationException exc) {
+            thrown = exc.getMessage();
+        }
+    }
+
+    @Test
+    public void testReqABC() {
+
+        //A
+        String thrown0 = "";
+        int nrBefore = rep.getPatientList().size();
+        try {
+            ctrl.addPatient(new Patient("diana", "2971106123456", "pitesti"));
+            int nrAfter = rep.getPatientList().size();
+            assertEquals(nrBefore , nrAfter);
+        } catch (PatientException e) {
+            thrown0 = e.getMessage();
+        }
+
+        //B
+        List<String> meds = new ArrayList<String>();
+        int nrBefore2 = rep.getConsultationList().size();
+        meds.add("antibiotic");
+        meds.add("paracetamol");
+        String thrown = "";
+        try {
+            ctrl.addConsultation("23", "2971106123456", "varicela", meds, "10.04.2018");
+            int nrAfter2 = rep.getConsultationList().size()-1;
+
+            assertEquals(nrBefore2,nrAfter2);
+        } catch (ConsultationException exc) {
+            thrown = exc.getMessage();
+        }
+
+
+        //C
+        String diseaseWanted = "varicela";
+        String thrown2 = "";
+        try {
+            List<Patient> patientsWithDisease = ctrl.getPatientsWithDisease(diseaseWanted);
+            assertEquals(patientsWithDisease.size(), 2);
+        } catch (PatientException e) {
+            thrown2 = e.getMessage();
+            if(diseaseWanted != null)
+            {
+                assertEquals(thrown2, "Empty disease provided");
+            }
+            else {
+                assertEquals(thrown2, "Null disease parameter provided");
+            }
+        }
+
+    }
 }
